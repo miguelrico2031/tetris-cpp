@@ -14,10 +14,28 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(tetris-cpp 
     src/main.cpp
-    src/const.h
+    src/Game.cpp
+    src/Logger.cpp
+    src/MovingPiece.cpp
+    "src/GameplayScene.cpp"
+    src/Board.cpp
 )
 
 
 
 target_compile_features(tetris-cpp PRIVATE cxx_std_17)
 target_link_libraries(tetris-cpp PRIVATE SFML::Graphics)
+
+
+# Define la ruta de las texturas
+set(TEXTURE_DIR "${CMAKE_BINARY_DIR}/textures")
+
+# Asegurar que la carpeta de salida existe
+file(MAKE_DIRECTORY ${TEXTURE_DIR})
+
+# Copiar la textura al directorio de salida cada vez que se compila
+add_custom_command(TARGET tetris-cpp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    "${CMAKE_SOURCE_DIR}/textures/tex.png"
+    "${TEXTURE_DIR}/tex.png"
+)
