@@ -17,8 +17,12 @@ add_executable(tetris-cpp
     src/Game.cpp
     src/Logger.cpp
     src/MovingPiece.cpp
-    "src/GameplayScene.cpp"
+    src/GameplayScene.cpp
     src/Board.cpp
+    src/Piece.h 
+    src/Rotations.h
+    src/Colors.h
+    src/Piece.cpp
 )
 
 

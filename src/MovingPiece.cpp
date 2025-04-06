@@ -1,79 +1,54 @@
 #include "MovingPiece.h"
 #include "CONST.h"
+#include "Board.h"
+#include "Colors.h"
+#include <algorithm>
 
 namespace Pieces
 {
-	MovingPiece::MovingPiece(Piece piece, sf::Vector2i position)
-		: m_piece(piece), m_position(position), m_rotation(0)
+	MovingPiece::MovingPiece(PieceType piece, sf::Vector2i coords, const Board* board)
+		: m_piece(piece), m_coords(coords), m_board(board)
 	{
-		size_t i = 0;
-		const RotatedPiece& rotatedPiece = getRotatedPiece();
-		sf::Color color = Colors::All[piece];
+		m_piece.setPosition(board->matrixCoordsToPosition(m_coords));
+	}
 
-		size_t blockIndex = 0;
 
-		for (size_t row = 0; row < 4; row++)
+	void MovingPiece::setCoords(sf::Vector2i coords)
+	{
+		m_coords = coords;
+		m_piece.setPosition(m_board->matrixCoordsToPosition(m_coords));
+	}
+
+
+	void MovingPiece::moveCoords(sf::Vector2i movement)
+	{
+		sf::Vector2i newCoords = m_coords + movement;
+		if(areCoordsInBounds(newCoords))
+			setCoords(newCoords);
+	}
+
+	void MovingPiece::rotate(bool right)
+	{
+		m_piece.rotate(right);
+	}
+
+	bool MovingPiece::areCoordsInBounds(sf::Vector2i coords) const
+	{
+		const RotatedPiece& rotatedPiece = m_piece.getRotatedPiece();
+		for (int row = 0; row < 4; row++)
 		{
-			for (size_t col = 0; col < 4; col++)
+			for (int col = 0; col < 4; col++)
 			{
 				if (!rotatedPiece[row][col])
 					continue;
 
-				//for each 1/true in the RotatedPieceMatrix, create one block 
-				m_blocks[blockIndex] = sf::RectangleShape(CONST::BLOCK_SIZE_V);
-				auto& block = m_blocks[blockIndex];
-				blockIndex++;
-				//set its position using the displacement
-				sf::Vector2f blockPosition =
-				{
-					m_position.x + (col * (float)(int)CONST::BLOCK_SIZE),
-					m_position.y + (row * (float)(int)CONST::BLOCK_SIZE)
-				};
-				block.setPosition(blockPosition);
+				sf::Vector2i blockCoords = coords + sf::Vector2i{col, row};
 
-
-
-				//set its color
-				block.setFillColor(color);
-
+				if (blockCoords.x < 0 || blockCoords.x >= (int)CONST::BOARD_WIDTH || blockCoords.y >= (int)CONST::BOARD_HEIGHT)
+					return false;
 			}
 		}
-
+		return true;
 	}
-
-
-
-
-	void MovingPiece::rotate(bool right)
-	{
-		int numRotations = Rotations::All[m_piece].size();
-		if (right)
-		{
-			m_rotation = (m_rotation + 1) % numRotations;
-		}
-		else
-		{
-			m_rotation = (m_rotation - 1 + numRotations) % numRotations;
-		}
-	}
-
-	void MovingPiece::move(sf::Vector2i movement)
-	{
-		m_position += movement;
-		for (auto& block : m_blocks)
-		{
-			block.move(static_cast<sf::Vector2f>(movement));
-		}
-	}
-
-	void MovingPiece::draw(sf::RenderWindow& window)
-	{
-		for (auto& block : m_blocks)
-		{
-			window.draw(block);
-		}
-	}
-
-
 
 }

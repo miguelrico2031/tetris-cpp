@@ -1,30 +1,29 @@
 #pragma once
-#include "Pieces.h"
+#include "PieceType.h"
+#include "Piece.h"
 #include <SFML/Graphics.hpp>
 #include <array>
 
 namespace Pieces
 {
+	class Board;
+
 	class MovingPiece
 	{
 	public:
-		MovingPiece(Piece piece, sf::Vector2i position);
-
-		inline Piece getPiece() const { return m_piece; }
-
-		inline const RotatedPiece& getRotatedPiece() const { return Rotations::All[m_piece][m_rotation]; }
-		inline sf::Vector2i getPosition() const { return m_position; }
-		inline void setPosition(sf::Vector2i position) { m_position = position; }
-		
+		MovingPiece(PieceType piece, sf::Vector2i coords, const Board* board);
+		inline Piece& getPiece() { return m_piece; }
+		inline const Piece& getPiece() const { return m_piece; }
+		inline sf::Vector2i getCoords() const { return m_coords; }
+		void setCoords(sf::Vector2i coords);
+		void moveCoords(sf::Vector2i movement);
 		void rotate(bool right);
-		void move(sf::Vector2i movement);
-		void draw(sf::RenderWindow& window);
-
+		bool areCoordsInBounds(sf::Vector2i coords) const;
 	private:
 		Piece m_piece;
-		int m_rotation;
-		sf::Vector2i m_position; // top left corner of the piece (4x4 matrix)
+		sf::Vector2i m_coords; //board matrix coords
+		const Board* m_board;
+	private:
 
-		std::array<sf::RectangleShape, 4> m_blocks; //sfml shapes (for render only)
 	};
 }

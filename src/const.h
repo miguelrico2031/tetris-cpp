@@ -11,7 +11,7 @@ namespace CONST
 	constexpr sf::Color CLEAR_COLOR = { 0, 0, 0 };
 
 
-	constexpr size_t BLOCK_SIZE = 45;
+	constexpr size_t BLOCK_SIZE = 30;
 	constexpr sf::Vector2f BLOCK_SIZE_V = { BLOCK_SIZE, BLOCK_SIZE };
 
 
@@ -31,5 +31,8 @@ namespace CONST
 	constexpr float BOARD_BACKGROUND_GRID_THICKNESS = 2.0f;
 
 
+	constexpr float PIECE_MOVE_SPEED = 15.0f;
+	constexpr float PIECE_FALL_SPEED = 1.0f;
+	constexpr float PIECE_FALL_SPEED_FAST = 20.0f;
 
 }
