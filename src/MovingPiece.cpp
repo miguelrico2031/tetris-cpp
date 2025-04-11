@@ -1,5 +1,5 @@
 #include "MovingPiece.h"
-#include "CONST.h"
+#include "const.h"
 #include "Board.h"
 #include "Colors.h"
 #include <algorithm>

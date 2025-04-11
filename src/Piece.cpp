@@ -1,5 +1,5 @@
 #include "Piece.h"
-#include "CONST.h"
+#include "const.h"
 #include "Colors.h"
 
 namespace Pieces

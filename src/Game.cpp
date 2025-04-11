@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Logger.h"
 #include "GameplayScene.h"
-#include "CONST.h"
+#include "const.h"
 
 Game::Game()
 {

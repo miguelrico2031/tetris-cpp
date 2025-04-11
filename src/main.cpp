@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "CONST.h"
+#include "const.h"
 #include "Logger.h"
 #include "Game.h"
 

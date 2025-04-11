@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
 #include <vector>
-#include "CONST.h"
+#include "const.h"
 #include "Piece.h"
 
 	
