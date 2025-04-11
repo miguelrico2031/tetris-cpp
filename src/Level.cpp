@@ -17,7 +17,7 @@ float Level::getFallPeriod() const
 
 int Level::getPointsFromClearedRows(int rowsCleared)
 {
-	assert(rowsCleared > 0 && rowsCleared <= 4, "Rows cleared must be between 1 and 4");
+	assert(rowsCleared > 0 && rowsCleared <= 4);
 	m_clearedRows += rowsCleared;
 	int points = CONST::LEVEL_POINTS_PER_ROW[rowsCleared] * (m_currentLevel + 1);
 

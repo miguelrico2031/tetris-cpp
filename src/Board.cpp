@@ -69,8 +69,7 @@ bool Board::isPieceColliding(const Pieces::RotatedPiece& rotatedPiece, sf::Vecto
 			sf::Vector2i blockCoords = checkCoords + sf::Vector2i{ col, row }; //block
 
 			assert(blockCoords.x >= 0 && blockCoords.x < CONST::BOARD_WIDTH
-				&& blockCoords.y >= 0 && blockCoords.y < CONST::BOARD_HEIGHT,
-				"BLOCK COORDS OUT OF BOARD BOUNDS!");
+				&& blockCoords.y >= 0 && blockCoords.y < CONST::BOARD_HEIGHT);
 
 			//check collision with board matrix
 			if (m_matrix[blockCoords.x + blockCoords.y * CONST::BOARD_WIDTH] != Pieces::None)

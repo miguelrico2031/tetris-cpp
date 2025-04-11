@@ -35,8 +35,8 @@ private:
 	sf::RectangleShape m_fixedBlock; //this is moved and drawn for each block in the matrix
 	int m_minMatrixBlockDepth = CONST::BOARD_HEIGHT; //smallest y coord of a block in the matrix
 	std::vector<int> m_fullRows;
-	int m_clearedMinDepth;
-	int m_clearedMaxDepth;
+	int m_clearedMinDepth =CONST::BOARD_HEIGHT;
+	int m_clearedMaxDepth = -1;
 
 private:
 	void drawBackgroundGrid(sf::RenderWindow& window);
