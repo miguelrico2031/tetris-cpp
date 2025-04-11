@@ -13,7 +13,13 @@ namespace Logger
         auto now = std::chrono::system_clock::now();
         auto in_time_t = std::chrono::system_clock::to_time_t(now);
         std::tm buf;
+#ifdef _MSC_VER
+        // MSVC
         localtime_s(&buf, &in_time_t);
+#else
+        // GCC/Clang (POSIX)
+        localtime_r(&in_time_t, &buf);
+#endif
         std::ostringstream oss;
         oss << std::put_time(&buf, "%H:%M:%S");
         return oss.str();
