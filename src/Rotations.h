@@ -9,7 +9,7 @@ namespace Pieces
 
 	namespace Rotations
 	{
-		const RotatedPieceArray None;
+		const RotatedPieceArray None{};
 
 		const RotatedPieceArray O =
 		{{
