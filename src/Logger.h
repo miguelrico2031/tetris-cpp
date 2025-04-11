@@ -11,8 +11,6 @@ namespace Logger
         Info,
     };
 
-    extern LogLevel logLevel;
-
     std::string getTimeForLog();
 
     void log(const std::string& message);

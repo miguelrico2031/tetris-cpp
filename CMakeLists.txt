@@ -12,18 +12,21 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
+
 add_executable(tetris-cpp 
     src/main.cpp
     src/Game.cpp
     src/Logger.cpp
-    src/MovingPiece.cpp
     src/GameplayScene.cpp
     src/Board.cpp
-    src/Piece.h 
-    src/Rotations.h
-    src/Colors.h
-    src/Piece.cpp
-)
+    src/MovingPiece.cpp
+    src/Piece.cpp    
+    src/MovingPieceState.cpp 
+    src/GameplayState.cpp 
+    src/ClearRowsState.cpp
+    src/Level.cpp 
+    src/Generator.cpp
+ )
 
 
 

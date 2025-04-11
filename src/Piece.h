@@ -14,6 +14,8 @@ namespace Pieces
 		inline int getRotation() const { return m_rotation; }
 		inline sf::Vector2f getPosition() const { return m_position; }
 
+		int getNextRotation(bool right) const;
+		const RotatedPiece& getNextRotatedPiece(bool right) const;
 		void rotate(bool right);
 		void setRotation(int rotation);
 		void move(sf::Vector2f movement);

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <array>
 
 namespace CONST
 {
@@ -31,8 +32,57 @@ namespace CONST
 	constexpr float BOARD_BACKGROUND_GRID_THICKNESS = 2.0f;
 
 
-	constexpr float PIECE_MOVE_SPEED = 15.0f;
-	constexpr float PIECE_FALL_SPEED = 1.0f;
-	constexpr float PIECE_FALL_SPEED_FAST = 20.0f;
+	constexpr float CLEAR_ROWS_ANIM_STEP_DELAY = 0.1f;
+
+
+
+	constexpr float PIECE_MOVE_PERIOD = 1.0f / 15.0f; // seconds / cell
+	constexpr float PIECE_FALL_PERIOD = 1.0f; // seconds / cell
+	constexpr float PIECE_FALL_PERIOD_FAST = 1.0f / 20.0f; // // seconds / cell
+
+	//level
+	constexpr std::array<float, 30> LEVEL_FALL_PERIODS = // seconds / cell
+	{
+		0.800f,
+		0.716f,
+		0.633f,
+		0.550f,
+		0.466f,
+		0.383f,
+		0.300f,
+		0.216f,
+		0.133f,
+		0.100f,
+		0.083f,
+		0.083f,
+		0.083f,
+		0.066f,
+		0.066f,
+		0.066f,
+		0.050f,
+		0.050f,
+		0.050f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.033f,
+		0.0167f
+	};
+
+	constexpr std::array<int, 5> LEVEL_POINTS_PER_ROW =
+	{
+		0,
+		40,
+		100,
+		300,
+		1200
+	};
+
 
 }

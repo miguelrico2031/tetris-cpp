@@ -7,8 +7,7 @@
 
 namespace Logger
 {
-    LogLevel logLevel = LogLevel::Info; // Definición de la variable global
-
+    static LogLevel logLevel = LogLevel::Info; 
     std::string getTimeForLog()
     {
         auto now = std::chrono::system_clock::now();

@@ -1,28 +1,45 @@
 #pragma once
 #include "PieceType.h"
 #include <array>
-#include <vector>
 
 namespace Pieces 
 {
 	using RotatedPiece = std::array<std::array<bool, 4>, 4>;
-	using RotatedPieceList = std::array<RotatedPiece, 4>;
+	using RotatedPieceArray = std::array<RotatedPiece, 4>;
 
 	namespace Rotations
 	{
-		const RotatedPieceList None;
+		const RotatedPieceArray None;
 
-		const RotatedPieceList O =
+		const RotatedPieceArray O =
 		{{
 			{{
 				{{0, 1, 1, 0}},
 				{{0, 1, 1, 0}},
 				{{0, 0, 0, 0}},
 				{{0, 0, 0, 0}},
-			}}
+			}},
+			{{
+				{{0, 1, 1, 0}},
+				{{0, 1, 1, 0}},
+				{{0, 0, 0, 0}},
+				{{0, 0, 0, 0}},
+			}},
+			{{
+				{{0, 1, 1, 0}},
+				{{0, 1, 1, 0}},
+				{{0, 0, 0, 0}},
+				{{0, 0, 0, 0}},
+			}},
+			{{
+				{{0, 1, 1, 0}},
+				{{0, 1, 1, 0}},
+				{{0, 0, 0, 0}},
+				{{0, 0, 0, 0}},
+			}},
 		}};
 
-		const RotatedPieceList I =
+		const RotatedPieceArray I =
 		{{
 			{{
 				{{0, 0, 0, 0,}},
@@ -50,7 +67,7 @@ namespace Pieces
 			}}
 		}};
 
-		const RotatedPieceList S =
+		const RotatedPieceArray S =
 		{ {
 			{{
 				{{0, 1, 1, 0}},
@@ -78,7 +95,7 @@ namespace Pieces
 			}},
 		}};
 
-		const RotatedPieceList Z =
+		const RotatedPieceArray Z =
 		{ {
 			{{
 				{{1, 1, 0, 0}},
@@ -106,7 +123,7 @@ namespace Pieces
 			}},
 		}};
 
-		const RotatedPieceList T =
+		const RotatedPieceArray T =
 		{ {
 			{{
 				{{0, 1, 0, 0}},
@@ -134,7 +151,7 @@ namespace Pieces
 			}},
 		}};
 
-		const RotatedPieceList J =
+		const RotatedPieceArray J =
 		{ {
 			{{
 				{{1, 0, 0, 0}},
@@ -162,7 +179,7 @@ namespace Pieces
 			}},
 		}};
 
-		const RotatedPieceList L =
+		const RotatedPieceArray L =
 		{ {
 			{{
 				{{0, 0, 1, 0}},
@@ -190,6 +207,6 @@ namespace Pieces
 			}},
 		}};
 
-		const RotatedPieceList All[] = { None, O, I, S, Z, T, J, L };
+		const RotatedPieceArray All[] = { None, O, I, S, Z, T, J, L };
 	}
 }

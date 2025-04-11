@@ -20,17 +20,27 @@ namespace Pieces
 
 	}
 
-	void Piece::rotate(bool right)
+	int Piece::getNextRotation(bool right) const
 	{
-		int numRotations = Rotations::All[m_piece].size();
+		static int numRotations = Rotations::All[m_piece].size(); //4 constexpr
 		if (right)
 		{
-			setRotation((m_rotation + 1) % numRotations);
+			return (m_rotation + 1) % numRotations;
 		}
 		else
 		{
-			setRotation((m_rotation - 1 + numRotations) % numRotations);
+			return (m_rotation - 1 + numRotations) % numRotations;
 		}
+	}
+
+	const RotatedPiece& Piece::getNextRotatedPiece(bool right) const
+	{
+		return Rotations::All[m_piece][getNextRotation(right)];
+	}
+
+	void Piece::rotate(bool right)
+	{
+		setRotation(getNextRotation(right));
 	}
 
 	void Piece::setRotation(int rotation)
@@ -56,11 +66,6 @@ namespace Pieces
 					m_position.y + ((float)row * (float)CONST::BLOCK_SIZE)
 				};
 				block.setPosition(blockPosition);
-
-
-
-				//set its color
-
 			}
 		}
 	}
