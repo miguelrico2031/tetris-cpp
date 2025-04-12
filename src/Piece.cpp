@@ -13,7 +13,7 @@ namespace Pieces
 		{
 			block.setSize(CONST::BLOCK_SIZE_V);
 			block.setFillColor(color);
-			static sf::Texture tex("../textures/tex.png");
+			static sf::Texture tex("../resources/tex.png");
 			block.setTexture(&tex);
 		}
 		setRotation(rotation);

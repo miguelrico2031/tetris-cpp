@@ -5,12 +5,15 @@
 #include <memory>
 #include "Level.h"
 #include "Generator.h"
+#include "HoldPanel.h"
+#include "ScorePanel.h"
+#include "NextPiecePanel.h"
 
 
 class GameplayScene : public Scene
 {
 public:
-	GameplayScene(std::string name) : Scene(name), m_board(CONST::BOARD_POSITION) {}
+	GameplayScene(std::string name) : Scene(name) {}
 	virtual void load() override;
 	virtual void update(float dt) override;
 	virtual void render(sf::RenderWindow& window) override;
@@ -21,6 +24,12 @@ public:
 	inline const Level& getLevel() const { return m_level; }
 	inline Pieces::Generator& getGenerator() { return m_generator; }
 	inline const Pieces::Generator& getGenerator() const { return m_generator; }
+	inline HoldPanel& getHoldPanel() { return m_holdPanel; }
+	inline const HoldPanel& getHoldPanel() const { return m_holdPanel; }
+	inline ScorePanel& getScorePanel() { return m_scorePanel; }
+	inline const ScorePanel& getScorePanel() const { return m_scorePanel; }
+	inline NextPiecePanel& getNextPiecePanel() { return m_nextPiecePanel; }
+	inline const NextPiecePanel& getNextPiecePanel() const { return m_nextPiecePanel; }
 
 	template <typename StateT>
 	inline void SetState() { m_currentState = std::make_unique<StateT>(*this); }
@@ -29,4 +38,7 @@ private:
 	Level m_level;
 	Pieces::Generator m_generator;
 	std::unique_ptr<GameplayState> m_currentState = nullptr;
+	HoldPanel m_holdPanel;
+	ScorePanel m_scorePanel;
+	NextPiecePanel m_nextPiecePanel;
 };

@@ -19,9 +19,17 @@ void ClearRowsState::update(float dt)
 	
 	if (m_columnToClearLeft < 0 || m_columnToClearRight >= CONST::BOARD_WIDTH)
 	{
-		int points = m_scene.getLevel().getPointsFromClearedRows(m_board.getFullRows().size());
+		auto& level = m_scene.getLevel();
+		int oldLevel = level.getCurrentLevel();
+		int clearedRows = m_board.getFullRows().size();
+		int points = m_scene.getLevel().getPointsFromClearedRows(clearedRows);
 		m_board.moveClearedRowsDown();
 		Logger::log("Points: " + std::to_string(points));
+		auto& scorePanel = m_scene.getScorePanel();
+		scorePanel.addClearedRows(clearedRows, points);
+		if (oldLevel != level.getCurrentLevel())
+			scorePanel.setLevel(level.getCurrentLevel());
+
 		m_scene.SetState<MovingPieceState>();
 		return;
 	}

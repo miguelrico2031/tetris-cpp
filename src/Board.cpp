@@ -3,10 +3,9 @@
 #include "Piece.h"
 #include "Colors.h"
 
-Board::Board(sf::Vector2f position)
-	: m_position(position)
+Board::Board() : m_position(CONST::BOARD_POSITION)
 {
-	static sf::Texture tex("../textures/tex.png");
+	static sf::Texture tex("../resources/tex.png");
 	m_fixedBlock.setTexture(&tex);
 	m_fixedBlock.setSize(CONST::BLOCK_SIZE_V);
 

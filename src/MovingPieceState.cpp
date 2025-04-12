@@ -7,10 +7,13 @@ MovingPieceState::MovingPieceState(GameplayScene& scene)
 	: GameplayState(scene)
 {
 	m_movingPiece = std::make_unique<Pieces::MovingPiece>(
-		scene.getGenerator().getNextRandomPiece(),
+		m_scene.getGenerator().getNextRandomPiece(),
 		m_board.getDefaultMovingPieceSpawnPoint(),
 		m_board);
 	Logger::log("new moving piece!");
+	auto& nextPiecePanel = m_scene.getNextPiecePanel();
+	nextPiecePanel.updateNextPieces(m_scene.getGenerator().getNext3Pieces());
+
 }
 
 
@@ -20,13 +23,18 @@ void MovingPieceState::update(float dt)
 	
 	if (!m_hasHeld && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
 	{
-		Pieces::PieceType pieceType = m_scene.getGenerator().holdPiece(m_movingPiece->getPiece().getPieceType());
-		
+		Pieces::PieceType oldPieceType = m_movingPiece->getPiece().getPieceType();
+		Pieces::PieceType pieceType = m_scene.getGenerator().holdPiece(oldPieceType);
+		m_scene.getHoldPanel().setHeldPiece(oldPieceType);
+
 		m_movingPiece = std::make_unique<Pieces::MovingPiece>(
 			pieceType,
 			m_board.getDefaultMovingPieceSpawnPoint(),
 			m_board);
 		m_hasHeld = true;
+		auto& nextPiecePanel = m_scene.getNextPiecePanel();
+		nextPiecePanel.updateNextPieces(m_scene.getGenerator().getNext3Pieces());
+
 	}
 
 	handleRotationInput();

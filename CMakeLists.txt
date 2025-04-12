@@ -26,23 +26,39 @@ add_executable(tetris-cpp
     src/ClearRowsState.cpp
     src/Level.cpp 
     src/Generator.cpp
- )
+    src/HoldPanel.cpp
+ "src/ScorePanel.cpp" "src/NextPiecePanel.cpp")
 
 
 
 target_compile_features(tetris-cpp PRIVATE cxx_std_17)
 target_link_libraries(tetris-cpp PRIVATE SFML::Graphics)
 
+set(RESOURCE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/resources")
+set(RESOURCE_OUTPUT_DIR "${CMAKE_BINARY_DIR}/resources")
 
-# Define la ruta de las texturas
-set(TEXTURE_DIR "${CMAKE_BINARY_DIR}/textures")
+file(GLOB_RECURSE RESOURCE_FILES "${RESOURCE_SOURCE_DIR}/*")
 
-# Asegurar que la carpeta de salida existe
-file(MAKE_DIRECTORY ${TEXTURE_DIR})
 
-# Copiar la textura al directorio de salida cada vez que se compila
-add_custom_command(TARGET tetris-cpp POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-    "${CMAKE_SOURCE_DIR}/textures/tex.png"
-    "${TEXTURE_DIR}/tex.png"
-)
+# Crear el directorio si no existe
+file(MAKE_DIRECTORY "${RESOURCE_OUTPUT_DIR}")
+
+# Añadir comando para copiar cada archivo
+foreach(RESOURCE_FILE ${RESOURCE_FILES})
+    get_filename_component(FILENAME ${RESOURCE_FILE} NAME)
+    add_custom_command(
+        OUTPUT "${RESOURCE_OUTPUT_DIR}/${FILENAME}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${RESOURCE_FILE}"
+                "${RESOURCE_OUTPUT_DIR}/${FILENAME}"
+        DEPENDS "${RESOURCE_FILE}"
+    )
+    list(APPEND COPIED_RESOURCES "${RESOURCE_OUTPUT_DIR}/${FILENAME}")
+endforeach()
+
+# Crear un target personalizado que agrupe todos los archivos copiados
+add_custom_target(copy_resources ALL DEPENDS ${COPIED_RESOURCES})
+
+# Asegurar que se copien después de compilar tu ejecutable
+add_dependencies(tetris-cpp copy_resources)
+

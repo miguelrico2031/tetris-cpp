@@ -8,7 +8,7 @@
 class Board
 {
 public:
-	Board(sf::Vector2f position);
+	Board();
 
 	sf::Vector2i getDefaultMovingPieceSpawnPoint() const;
 	bool isPieceInBounds(const Pieces::RotatedPiece& rotatedPiece, sf::Vector2i checkCoords) const;

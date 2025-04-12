@@ -7,13 +7,18 @@ namespace Pieces
 {
 	PieceType Generator::getNextRandomPiece()
 	{
+		PieceType piece = m_next3Pieces.front();
+		m_next3Pieces.pop();
 		if (m_nextPieceIndex >= m_pieceBag.size())
 		{
 			shuffleBag();
-			m_nextPieceIndex = 0;
 		}
-		Logger::log("piece generated: " + std::to_string(m_pieceBag[m_nextPieceIndex]));
-		return m_pieceBag[m_nextPieceIndex++];
+		else
+		{
+			m_next3Pieces.push(m_pieceBag[m_nextPieceIndex++]);
+		}
+		Logger::log("piece generated: " + std::to_string(piece));
+		return piece;
 	}
 
 	PieceType Generator::holdPiece(PieceType piece)
@@ -31,5 +36,11 @@ namespace Pieces
 		static std::default_random_engine random{ randomDevice() };
 
 		std::shuffle(std::begin(m_pieceBag), std::end(m_pieceBag), random);
+		m_nextPieceIndex = 0;
+
+		while (m_next3Pieces.size() < 3)
+		{
+			m_next3Pieces.push(m_pieceBag[m_nextPieceIndex++]);
+		}
 	}
 }
