@@ -19,9 +19,9 @@ A Tetris clone developed in C++ using SFML to enhance my C++ programming skills.
 
       `git clone https://github.com/miguelrico2031/tetris-cpp.git`
 
-      `cd tetris-cpp`
 3. Open the project in Visual Studio using "Open a Local Folder" option.
 4. Build the project by selecting the desired configuration (e.g., Debug or Release) and clicking "Build" > "Build All" from the menu.
+5. The build output will be in the `out/{ x64-Debug or x64-Release }` directory within the project folder. The `bin` and `resources` directories are needed to run the game. The `bin` directory contains the executable `tetris-cpp.exe`.
 
 ### Alternative: Using CMake and Ninja
 
