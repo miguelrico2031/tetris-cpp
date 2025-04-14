@@ -27,8 +27,14 @@ add_executable(tetris-cpp
     src/Level.cpp 
     src/Generator.cpp
     src/HoldPanel.cpp
- "src/ScorePanel.cpp" "src/NextPiecePanel.cpp")
-
+    src/ScorePanel.cpp
+    src/NextPiecePanel.cpp
+    src/MenuScene.cpp
+    src/GameOverScene.cpp
+    src/Button.cpp
+    src/ButtonManager.cpp
+    src/Save.cpp
+)
 
 
 target_compile_features(tetris-cpp PRIVATE cxx_std_17)

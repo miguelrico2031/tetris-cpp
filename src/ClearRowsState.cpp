@@ -6,6 +6,10 @@
 ClearRowsState::ClearRowsState(GameplayScene& scene)
 	: GameplayState(scene)
 {
+}
+
+void ClearRowsState::enter()
+{
 	m_columnToClearRight = (int)CONST::BOARD_WIDTH / 2;
 	m_columnToClearLeft = ((int)CONST::BOARD_WIDTH - 1) / 2;
 	m_clearRowsTimer = 0.0f;

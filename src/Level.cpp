@@ -28,6 +28,7 @@ int Level::getPointsFromClearedRows(int rowsCleared)
 		Logger::log("Level up! New level: " + std::to_string(m_currentLevel));
 	}
 
+	m_score += points;
 	return points;
 }
 

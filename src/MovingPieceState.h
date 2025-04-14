@@ -7,6 +7,7 @@ class MovingPieceState : public GameplayState
 {
 public:
 	MovingPieceState(GameplayScene& scene);
+	virtual void enter() override;
 	virtual void update(float dt) override;
 	virtual void render(sf::RenderWindow& window) override;
 private:

@@ -13,7 +13,7 @@
 class GameplayScene : public Scene
 {
 public:
-	GameplayScene(std::string name) : Scene(name) {}
+	GameplayScene(Game* game);
 	virtual void load() override;
 	virtual void update(float dt) override;
 	virtual void render(sf::RenderWindow& window) override;
@@ -32,7 +32,13 @@ public:
 	inline const NextPiecePanel& getNextPiecePanel() const { return m_nextPiecePanel; }
 
 	template <typename StateT>
-	inline void SetState() { m_currentState = std::make_unique<StateT>(*this); }
+	inline void SetState()
+	{
+		m_currentState = std::make_unique<StateT>(*this);
+		m_currentState->enter();
+	}
+
+	void SetGameOver();
 private:
 	Board m_board;
 	Level m_level;

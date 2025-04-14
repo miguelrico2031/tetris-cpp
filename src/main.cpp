@@ -9,7 +9,7 @@ int main()
 	//Init clock and window
 	sf::Clock clock;
 	sf::RenderWindow window(sf::VideoMode(CONST::WINDOW_SIZE), CONST::WINDOW_TITLE, sf::Style::Titlebar | sf::Style::Close);
-	Game game;
+	Game game(window);
 	game.start();
 	
 	//window.setFramerateLimit(60);
@@ -34,7 +34,7 @@ int main()
 		game.update(deltaTimeSeconds);
 
 		//render
-		game.render(window);
+		game.render();
 
 	}
 

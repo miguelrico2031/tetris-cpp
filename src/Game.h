@@ -1,37 +1,37 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <unordered_map>
-#include <map>
+#include <memory>
 
 #include "Scene.h"
 class Game
 {
 public:
-	Game();
-	~Game();
+	Game(sf::RenderWindow& window) : m_window(window) {}
 	void start();
 	void update(float dt);
-	void render(sf::RenderWindow& window);
+	void render();
 	void handleEvents(const std::optional<sf::Event>& event);
-	void loadScene(std::string sceneName);
 
+	inline sf::RenderWindow& getWindow() { return m_window; }
 
-private:
-	Scene* m_currentScene = nullptr;
-	std::unordered_map<std::string, Scene*> m_scenes;
-
-private:
-	template <typename SceneType> SceneType* addScene()
+	template <typename SceneType>
+	inline void setScene()
 	{
-		std::string sceneName = typeid(SceneType).name();
-		SceneType* newScene = new SceneType(sceneName);
-		m_scenes[sceneName] = newScene;
-		return newScene;
+		if (m_currentScene != nullptr)
+			m_currentScene->unload();
+		m_currentScene = std::make_unique<SceneType>(this);
+		m_currentScene->load();
 	}
 
-	void loadScene(Scene* scene);
+	inline int getStartLevel() const { return m_startLevel; }
+	inline void setStartLevel(int level) { m_startLevel = level; }
 
-
-
+	inline int getScore() const { return m_score; }
+	inline void setScore(int score) { m_score = score; }
+private:
+	sf::RenderWindow& m_window;
+	std::unique_ptr<Scene> m_currentScene = nullptr;
+	int m_startLevel = 0;
+	int m_score = 0;
 };

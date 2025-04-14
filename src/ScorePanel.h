@@ -5,7 +5,7 @@
 class ScorePanel : public Panel
 {
 public:
-	ScorePanel();
+	ScorePanel(int startLevel);
 	virtual void draw(sf::RenderWindow& window) override;
 	void addClearedRows(int clearedRows, int score);
 	void setLevel(int level);

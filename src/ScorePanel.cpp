@@ -1,6 +1,6 @@
 #include "ScorePanel.h"
 
-ScorePanel::ScorePanel()
+ScorePanel::ScorePanel(int startLevel)
 	: Panel(),
 	m_scoreTextNumber(CONST::FONT),
 	m_levelTextLabel(CONST::FONT),
@@ -8,10 +8,12 @@ ScorePanel::ScorePanel()
 	m_linesTextLabel(CONST::FONT),
 	m_linesTextNumber(CONST::FONT)
 {
+	m_level = startLevel;
+
 	m_scoreTextLabel.setString(CONST::SCORE_PANEL_TEXT);
 	m_scoreTextNumber.setString("0");
 	m_levelTextLabel.setString(CONST::SCORE_LEVEL_TEXT);
-	m_levelTextNumber.setString("0");
+	m_levelTextNumber.setString(std::to_string(m_level));
 	m_linesTextLabel.setString(CONST::SCORE_LINES_TEXT);
 	m_linesTextNumber.setString("0");
 

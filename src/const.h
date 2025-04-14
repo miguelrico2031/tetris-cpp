@@ -102,6 +102,15 @@ namespace CONST
 	};
 
 
+	constexpr std::array<int, 6> SELECTABLE_START_LEVELS =
+	{
+		0, 5, 10, 15, 20, 25
+	};
+
+	const sf::String TITLE_TEXT = "Tetris Clone";
+	const sf::String GAME_OVER_TEXT = "Game Over";
+
+
 	inline const sf::Font& getFont()
 	{
 		static sf::Font font;

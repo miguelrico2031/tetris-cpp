@@ -6,20 +6,30 @@
 MovingPieceState::MovingPieceState(GameplayScene& scene)
 	: GameplayState(scene)
 {
-	m_movingPiece = std::make_unique<Pieces::MovingPiece>(
-		m_scene.getGenerator().getNextRandomPiece(),
-		m_board.getDefaultMovingPieceSpawnPoint(),
-		m_board);
-	Logger::log("new moving piece!");
+}
+
+void MovingPieceState::enter()
+{
+	auto pieceType = m_scene.getGenerator().getNextRandomPiece();
+	auto coords = m_board.getDefaultMovingPieceSpawnPoint();
+	m_movingPiece = std::make_unique<Pieces::MovingPiece>(pieceType, coords, m_board);
+
+	const auto& rotatedPiece = m_movingPiece->getPiece().getRotatedPiece();
+	if (m_board.isPieceColliding(rotatedPiece, coords))
+	{
+		m_movingPiece = nullptr;
+		m_scene.SetGameOver();
+		return;
+	}
+
 	auto& nextPiecePanel = m_scene.getNextPiecePanel();
 	nextPiecePanel.updateNextPieces(m_scene.getGenerator().getNext3Pieces());
-
 }
 
 
 void MovingPieceState::update(float dt)
 {
-	static float baseFallPeriod = m_scene.getLevel().getFallPeriod();
+	float baseFallPeriod = m_scene.getLevel().getFallPeriod();
 	
 	if (!m_hasHeld && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
 	{
@@ -123,14 +133,14 @@ void MovingPieceState::rotatePiece(bool right)
 }
 
 
+
 void MovingPieceState::fallPiece()
 {
-	static Pieces::PieceType pieceType = Pieces::PieceType::I;
 	sf::Vector2i checkCoords = m_movingPiece->getCoords() + sf::Vector2i{ 0, 1 };
 	const auto& rotatedPiece = m_movingPiece->getPiece().getRotatedPiece();
 
 	if (!m_board.isPieceInBounds(rotatedPiece, checkCoords) ||
-		m_board.isPieceColliding(m_movingPiece->getPiece().getRotatedPiece(), checkCoords))
+		m_board.isPieceColliding(rotatedPiece, checkCoords))
 	{
 		m_board.fixPieceInMatrix(m_movingPiece->getPiece(), m_movingPiece->getCoords());
 		if (m_board.anyFullRows())
