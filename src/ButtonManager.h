@@ -16,5 +16,5 @@ private:
 	std::vector<std::unique_ptr<Button>> m_buttons;
 	sf::RenderWindow& m_window;
 private:
-	bool ButtonManager::isMouseOverButton(Button& button, sf::Vector2f mousePos);
+	bool isMouseOverButton(Button& button, sf::Vector2f mousePos);
 };
