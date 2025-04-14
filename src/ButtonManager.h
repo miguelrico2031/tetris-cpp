@@ -1,6 +1,7 @@
 #pragma once
 #include "Button.h"
 #include <vector>
+#include <memory>
 
 class ButtonManager
 {
@@ -12,7 +13,7 @@ public:
 					  unsigned int textSize, sf::Color textColor, sf::Color backgroundColor);
 	void removeButton(Button& button);
 private:
-	std::vector<Button> m_buttons;
+	std::vector<std::unique_ptr<Button>> m_buttons;
 	sf::RenderWindow& m_window;
 private:
 	bool ButtonManager::isMouseOverButton(Button& button, sf::Vector2f mousePos);

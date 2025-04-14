@@ -8,6 +8,7 @@
 #include "HoldPanel.h"
 #include "ScorePanel.h"
 #include "NextPiecePanel.h"
+#include "ButtonManager.h"
 
 
 class GameplayScene : public Scene
@@ -39,6 +40,8 @@ public:
 	}
 
 	void SetGameOver();
+	void togglePause();
+	void goToMenu();
 private:
 	Board m_board;
 	Level m_level;
@@ -47,4 +50,7 @@ private:
 	HoldPanel m_holdPanel;
 	ScorePanel m_scorePanel;
 	NextPiecePanel m_nextPiecePanel;
+	ButtonManager m_buttonManager;
+	sf::Text* m_pauseButtonText = nullptr;
+	bool m_paused = false;
 };

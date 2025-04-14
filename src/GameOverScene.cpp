@@ -29,8 +29,7 @@ void GameOverScene::load()
 
 	Button& menuBtn = m_buttonManager.addButton([this]() { saveAndGoToMenu(); },
 		"Menu", { CONST::WINDOW_WIDTH / 2.0f, CONST::WINDOW_HEIGHT / 2.0f + 150.0f }, { 300, 100 }, 20, sf::Color::White, { 40, 90, 30 });
-	menuBtn.getShape().setOutlineColor(sf::Color::White);
-	menuBtn.getShape().setOutlineThickness(5);
+
 }
 
 void GameOverScene::update(float dt)

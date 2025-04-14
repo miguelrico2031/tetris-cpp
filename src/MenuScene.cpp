@@ -27,14 +27,12 @@ void MenuScene::load()
 
    Button& playBtn = m_buttonManager.addButton([this]() { startGameplay(); },  
        "Play", {CONST::WINDOW_WIDTH/2.0f, CONST::WINDOW_HEIGHT / 2.0f - 100}, {300, 100}, 20, sf::Color::White, {40, 90, 30});
-   playBtn.getShape().setOutlineColor(sf::Color::White);  
-   playBtn.getShape().setOutlineThickness(5);  
+
 
    sf::String levelTxt = "Level: " + std::to_string(CONST::SELECTABLE_START_LEVELS[m_selectedLevelIndex]);
    Button& levelBtn = m_buttonManager.addButton([this]() { toggleLevel(); },  
 	   levelTxt, { CONST::WINDOW_WIDTH / 2.0f, CONST::WINDOW_HEIGHT / 2.0f + 100 }, { 300, 100 }, 20, sf::Color::White, {75, 75, 75});
-   levelBtn.getShape().setOutlineColor(sf::Color::White);
-   levelBtn.getShape().setOutlineThickness(5);
+
    m_levelButtonText = &levelBtn.getText();
 
 }

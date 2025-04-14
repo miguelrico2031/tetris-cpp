@@ -17,8 +17,9 @@ void ButtonManager::update(float dt)
 	sf::Vector2i mousePosInt = sf::Mouse::getPosition(m_window);
 	sf::Vector2f mousePos = { (float)mousePosInt.x, (float)mousePosInt.y };
 
-	for (Button& button : m_buttons)
+	for (auto& buttonPtr : m_buttons)
 	{
+		Button& button = *buttonPtr;
 		if (isMouseOverButton(button, mousePos))
 		{
 			if (!button.MouseOver)
@@ -44,21 +45,25 @@ void ButtonManager::update(float dt)
 
 void ButtonManager::render(sf::RenderWindow& window)
 {
-	for (Button& button : m_buttons)
+	for (auto& button : m_buttons)
 	{
-		button.draw(window);
+		button->draw(window);
 	}
 }
 
 Button& ButtonManager::addButton(std::function<void()> onClick, sf::String text, sf::Vector2f position, sf::Vector2f size,
 	unsigned int textSize, sf::Color textColor, sf::Color backgroundColor)
 {
-	auto& button = m_buttons.emplace_back(onClick);
+	auto buttonPtr = std::make_unique<Button>(onClick);
+	Button& button = *buttonPtr;
+	m_buttons.push_back(std::move(buttonPtr));
 	auto& buttonShape = button.getShape();
 	buttonShape.setSize(size);
 	buttonShape.setOrigin(size / 2.0f);
 	buttonShape.setPosition(position);
 	buttonShape.setFillColor(backgroundColor);
+	buttonShape.setOutlineColor(sf::Color::White);
+	buttonShape.setOutlineThickness(5);
 	auto& buttonText = button.getText();
 	buttonText.setCharacterSize(textSize);
 	buttonText.setString(text);
@@ -70,7 +75,7 @@ Button& ButtonManager::addButton(std::function<void()> onClick, sf::String text,
 
 void ButtonManager::removeButton(Button& button)
 {
-	auto it = std::remove_if(m_buttons.begin(), m_buttons.end(), [&button](Button& b) { return &b == &button; });
+	auto it = std::remove_if(m_buttons.begin(), m_buttons.end(), [&button](std::unique_ptr<Button>& b) { return b.get() == &button; });
 	if (it != m_buttons.end())
 	{
 		m_buttons.erase(it, m_buttons.end());
