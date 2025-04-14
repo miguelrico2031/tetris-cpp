@@ -1,4 +1,5 @@
 #include "ButtonManager.h"
+#include <algorithm>
 
 void ButtonManager::update(float dt)
 {
